@@ -1,0 +1,37 @@
+#include <string>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+
+using namespace std;
+
+
+int main(){
+	setlocale(LC_ALL, "");
+	ifstream in("input.txt");
+	if(!in){
+		cout << "Ошиба открытия файла";
+
+	}
+	else{
+		string input;
+
+		stringstream ss;	//строковый поток
+		getline(in, input, '\0');//считываем весь текст
+		bool flag = false;
+		for(int i = 0;i < input.size(); ++i){
+		    if(input[i] == '"'){
+				flag = !flag;
+				if(!flag){
+					ss << "\"\n";
+				}
+			}
+			if(flag){
+				ss << input[i];
+			}
+		}
+		cout << ss.str();
+		in.close();//закрываем файл
+	}
+	system("pause>>void");
+}
